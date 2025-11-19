@@ -1,0 +1,34 @@
+{
+    "safety_parameters": {
+        "force_limits": {
+            "max_force_newtons": 15.0,
+            "warning_threshold": 10.0,
+            "rapid_change_threshold": 5.0
+        },
+        "velocity_limits": {
+            "max_velocity_mm_per_sec": 50.0,
+            "warning_threshold": 40.0
+        },
+        "position_limits": {
+            "max_joint_angle_degrees": 180.0,
+            "min_joint_angle_degrees": -180.0,
+            "workspace_boundary_mm": 500.0
+        },
+        "collision_detection": {
+            "min_safe_distance_mm": 2.0,
+            "warning_distance_mm": 5.0,
+            "critical_distance_mm": 1.0
+        },
+        "emergency_procedures": {
+            "auto_emergency_stop": true,
+            "stop_delay_ms": 50,
+            "require_manual_reset": true
+        },
+        "iec_62304_compliance": {
+            "risk_class": "CLASS_C",
+            "safety_integrity_level": "SIL_3",
+            "documentation_required": true,
+            "audit_trail_retention_days": 3650
+        }
+    }
+}
