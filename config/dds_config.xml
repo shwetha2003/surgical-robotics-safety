@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dds xmlns="http://www.rti.com/Services/QualityOfServiceProfile">
+  <qos_library name="MedicalDeviceQoS">
+    <qos_profile name="RealTimeDataQoS" base_name="Generic.StrictReliable">
+      <domain_participant_qos>
+        <entity_factory>
+          <autoenable_created_entities>true</autoenable_created_entities>
+        </entity_factory>
+      </domain_participant_qos>
+      
+      <datawriter_qos>
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+          <max_blocking_time>
+            <sec>1</sec>
+            <nanosec>0</nanosec>
+          </max_blocking_time>
+        </reliability>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+        <history>
+          <kind>KEEP_LAST_HISTORY_QOS</kind>
+          <depth>1000</depth>
+        </history>
+        <deadline>
+          <period>
+            <sec>0</sec>
+            <nanosec>100000000</nanosec> <!-- 100ms -->
+          </period>
+        </deadline>
+      </datawriter_qos>
+      
+      <datareader_qos>
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+        </reliability>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+        <history>
+          <kind>KEEP_LAST_HISTORY_QOS</kind>
+          <depth>1000</depth>
+        </history>
+      </datareader_qos>
+    </qos_profile>
+  </qos_library>
+</dds>
