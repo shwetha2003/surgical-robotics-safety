@@ -27,5 +27,9 @@ add_subdirectory(testing)
 # DDS configuration (placeholder - would need RTI Connext)
 message(STATUS "DDS integration requires RTI Connext DDS installation")
 
-# Installation setup
-install(DIRECTORY config/ DESTINATION ${CMAKE_INSTALL_PREFIX}/config)
+# Create a simple demo executable
+add_executable(safety_demo core_engine/safety_demo.cpp)
+target_link_libraries(safety_demo core_engine)
+
+message(STATUS "✅ CMake configuration complete")
+message(STATUS "📁 Build targets: core_engine, safety_demo")
