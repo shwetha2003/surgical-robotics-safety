@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <atomic>
+#include <string>  // Add missing include
 
 // Simplified control command structure
 struct ControlCommand {
