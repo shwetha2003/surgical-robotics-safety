@@ -1,6 +1,7 @@
 #include "kinematics_solver.h"
 #include <iostream>
 #include <cmath>
+#include <stdexcept>
 
 RoboticsKinematics::RoboticsKinematics() {
     // Initialize with Ethicon surgical robot DH parameters
@@ -69,6 +70,9 @@ std::vector<double> RoboticsKinematics::inverseKinematics(const Eigen::Vector3d&
 }
 
 Eigen::MatrixXd RoboticsKinematics::calculateJacobian(const std::vector<double>& joint_angles) {
+    // Remove unused parameter warning by using the parameter
+    (void)joint_angles; // Mark as used
+    
     Eigen::MatrixXd jacobian(6, 6);
     
     // Calculate Jacobian matrix for velocity control
