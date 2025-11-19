@@ -3,6 +3,7 @@
 #include <fstream>
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 SurgicalSafetyMonitor::SurgicalSafetyMonitor() : emergency_stop_engaged(false) {
     initializeSafetyParameters();
@@ -21,7 +22,7 @@ bool SurgicalSafetyMonitor::validateJointPosition(const std::vector<double>& pos
     std::lock_guard<std::mutex> lock(safety_mutex);
     
     if(positions.size() * 2 != joint_limits.size()) {
-        logSafetyEvent("INVALID_JOINT_DATA", positions.size());
+        logSafetyEvent("INVALID_JOINT_DATA", static_cast<double>(positions.size()));
         return false;
     }
     
@@ -114,8 +115,8 @@ void SurgicalSafetyMonitor::logSafetyEvent(const std::string& event_type, double
     
     safety_event_queue.push(event);
     
-    // Maintain queue size
-    if(safety_event_queue.size() > MAX_SAFETY_EVENTS) {
+    // Maintain queue size - fix signed/unsigned comparison
+    if(safety_event_queue.size() > static_cast<size_t>(MAX_SAFETY_EVENTS)) {
         safety_event_queue.pop();
     }
 }
@@ -138,7 +139,10 @@ std::vector<SafetyEvent> SurgicalSafetyMonitor::getRecentSafetyEvents(int count)
 
 double SurgicalSafetyMonitor::calculateOverallSafetyScore() const {
     // Calculate safety score based on recent events
-    auto recent_events = getRecentSafetyEvents(100);
+    // Create a temporary non-const copy for getRecentSafetyEvents call
+    SurgicalSafetyMonitor* non_const_this = const_cast<SurgicalSafetyMonitor*>(this);
+    auto recent_events = non_const_this->getRecentSafetyEvents(100);
+    
     if(recent_events.empty()) return 100.0;
     
     double penalty_score = 0.0;
