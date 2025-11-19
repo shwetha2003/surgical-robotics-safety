@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake libeigen3-dev
+    
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r analytics/requirements.txt
+        pip install -r dashboard/requirements.txt
+    
+    - name: Configure CMake
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+    
+    - name: Build
+      run: |
+        cd build
+        make -j2
+    
+    - name: Run C++ tests
+      run: |
+        cd build
+        make test
+        ./bin/test_safety_monitor
+    
+    - name: Run Python tests
+      run: |
+        python -m pytest testing/ -v
+    
+    - name: Build documentation
+      run: |
+        cd build
+        make docs
