@@ -15,12 +15,9 @@ CommandSubscriber::~CommandSubscriber() {
 }
 
 void CommandSubscriber::processCommands() {
+    int counter = 0;
     while (!shutdown_requested) {
-        // Simulate receiving commands
-        // In real implementation, this would use DDS to receive data
-        
-        // Simulate occasional command reception
-        static int counter = 0;
+        // Simulate receiving commands periodically
         if (counter++ % 100 == 0) {
             ControlCommand simulated_command;
             simulated_command.timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -38,7 +35,20 @@ void CommandSubscriber::processCommands() {
 
 void CommandSubscriber::handleControlCommand(const ControlCommand& command) {
     std::cout << "📥 DDS Command Received: " << command.command_type 
-              << " - " << command.reason << std::endl;
+              << " - " << command.reason << " (Value: " << command.value << ")" << std::endl;
+    
+    // Handle different command types
+    if (command.command_type == "EMERGENCY_STOP") {
+        std::cout << "🚨 Processing EMERGENCY STOP command" << std::endl;
+    } else if (command.command_type == "RESUME_OPERATION") {
+        std::cout << "🔄 Processing RESUME OPERATION command" << std::endl;
+    } else if (command.command_type == "FORCE_LIMIT_ADJUST") {
+        std::cout << "⚙️  Processing force limit adjustment: " << command.value << "N" << std::endl;
+    } else if (command.command_type == "STATUS_CHECK") {
+        std::cout << "📊 Processing status check command" << std::endl;
+    } else {
+        std::cout << "❓ Unknown command type: " << command.command_type << std::endl;
+    }
 }
 
 void CommandSubscriber::shutdown() {
