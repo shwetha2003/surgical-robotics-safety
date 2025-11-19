@@ -1,0 +1,30 @@
+surgical-robotics-safety/
+├──  core_engine/
+│   ├── kinematics_solver.cpp
+│   ├── safety_monitor.cpp
+│   ├── collision_detector.cpp
+│   └── real_time_controller.cpp
+├──  analytics/
+│   ├── performance_analyzer.py
+│   ├── ml_anomaly_detector.py
+│   └── data_processor.py
+├──  dashboard/
+│   ├── real_time_monitor.py
+│   ├── surgeon_metrics.py
+│   └── safety_alerts.py
+├──  dds_integration/
+│   ├── data_publisher.cpp
+│   ├── command_subscriber.cpp
+│   └── qos_config.py
+├──  testing/
+│   ├── unit_tests/
+│   ├── integration_tests/
+│   └── validation_suite/
+├── compliance/
+│   ├── iec_62304_validator.py
+│   ├── documentation_generator.py
+│   └── audit_logger.py
+└──  config/
+    ├── safety_parameters.json
+    ├── robot_config.yaml
+    └── surgical_procedures.json
