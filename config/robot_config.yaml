@@ -1,0 +1,37 @@
+robot_configuration:
+  robot_type: "ETHICON_SURGICAL_ROBOT"
+  version: "2.1.0"
+  
+  kinematics:
+    dh_parameters:
+      joint_1: [0.0, 1.5708, 0.0, 0.15]
+      joint_2: [0.0, -1.5708, 0.25, 0.0]
+      joint_3: [0.0, 1.5708, 0.0, 0.18]
+      joint_4: [0.0, -1.5708, 0.0, 0.0]
+      joint_5: [0.0, 1.5708, 0.0, 0.1]
+      joint_6: [0.0, 0.0, 0.0, 0.05]
+    
+  sensors:
+    force_sensors:
+      count: 3
+      sampling_rate_hz: 1000
+      resolution_n: 0.1
+      
+    position_sensors:
+      count: 6
+      resolution_deg: 0.01
+      
+    safety_sensors:
+      emergency_stop_buttons: 2
+      collision_sensors: 4
+      
+  communication:
+    dds_domain: 0
+    update_rate_hz: 100
+    qos_profile: "MedicalDeviceQoS"
+    
+  logging:
+    safety_events: true
+    performance_metrics: true
+    raw_sensor_data: false
+    retention_period_days: 30
