@@ -1,0 +1,22 @@
+{
+  "surgical_procedures": {
+    "cholecystectomy": {
+      "phases": ["initialization", "port_placement", "dissection", "clipping", "specimen_removal", "closure"],
+      "expected_duration_min": 45,
+      "critical_structures": ["common_bile_duct", "hepatic_artery", "portal_vein"],
+      "safety_parameters": {
+        "max_force_near_duct": 8.0,
+        "recommended_velocity": 25.0
+      }
+    },
+    "hernia_repair": {
+      "phases": ["initialization", "dissection", "mesh_placement", "fixation", "closure"],
+      "expected_duration_min": 60,
+      "critical_structures": ["inferior_epigastric_vessels", "bladder", "spermatic_cord"],
+      "safety_parameters": {
+        "max_force_near_vessels": 10.0,
+        "recommended_velocity": 30.0
+      }
+    }
+  }
+}
